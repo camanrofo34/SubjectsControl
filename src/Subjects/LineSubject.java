@@ -10,13 +10,4 @@ public class LineSubject extends Subject{
         this.value = value;
     }
 
-    @Override
-    public double assignDiscount() {
-        return 0;
-    }
-
-    @Override
-    public double assignDiscountBySituation(String situation) {
-        return 0;
-    }
 }

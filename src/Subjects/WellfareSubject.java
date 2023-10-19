@@ -8,13 +8,4 @@ public class WellfareSubject extends Subject{
         this.hours = hours;
     }
 
-    @Override
-    public double assignDiscount() {
-        return 0;
-    }
-
-    @Override
-    public double assignDiscountBySituation(String situation) {
-        return 0;
-    }
 }

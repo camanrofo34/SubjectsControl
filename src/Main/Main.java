@@ -3,17 +3,14 @@ import Methods.SubjectRegister;
 import Subjects.LineSubject;
 import Subjects.WellfareSubject;
 import Users.Student;
-
-import javax.sound.sampled.Line;
 import javax.swing.*;
-import java.io.Console;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Main {
-    static ArrayList<Student> students = new ArrayList<Student>();
-    static ArrayList<LineSubject> lineSubjects = new ArrayList<LineSubject>();
-    static ArrayList<WellfareSubject> wellfareSubjects = new ArrayList<WellfareSubject>();
+    static ArrayList<Student> students = new ArrayList<>();
+    static ArrayList<LineSubject> lineSubjects = new ArrayList<>();
+    static ArrayList<WellfareSubject> wellfareSubjects = new ArrayList<>();
     static Scanner scanner = new Scanner(System.in);
     public static void main(String[] args) {
         boolean add = true;
@@ -33,7 +30,17 @@ public class Main {
                 System.out.println("Credits of the Subject: ");
                 int credits = scanner.nextInt();
                 scanner.nextLine();
-                double value = credits * creditValue;
+                System.out.println("Do you have any discount? (Y/N): ");
+                String discountApplication = scanner.next();
+                scanner.nextLine();
+                double value=0.0;
+                if (discountApplication.equalsIgnoreCase("Y")){
+                    System.out.println("Enter admin's password: ");
+                    String password = scanner.next();
+                    scanner.nextLine();
+                }
+                else value = credits * creditValue;
+
                 lineSubjects.add(new LineSubject(idSubject, subjectName, "LineSubject", "", credits, value));
                 System.out.println("Subject added correctly.");
             }

@@ -15,17 +15,17 @@ public class Subject implements DiscountAssignment{
         return subjectName;
     }
 
-    @Override
-    public double assignDiscount() {
-        return 0;
-    }
-
-    @Override
-    public double assignDiscountBySituation(String situation) {
-        return 0;
-    }
-
     public void setRegisteredDate(String registeredDate) {
         this.registeredDate = registeredDate;
+    }
+
+    @Override
+    public double assignDiscount(boolean permission) {
+        return 0.8;
+    }
+
+    @Override
+    public double assignDiscountBySituation(String situation, boolean permission) {
+        return 0;
     }
 }
