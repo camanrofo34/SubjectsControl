@@ -1,8 +1,12 @@
 package Main;
+import Methods.SubjectRegister;
 import Subjects.LineSubject;
 import Subjects.WellfareSubject;
 import Users.Student;
+
+import javax.sound.sampled.Line;
 import javax.swing.*;
+import java.io.Console;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -30,7 +34,7 @@ public class Main {
                 int credits = scanner.nextInt();
                 scanner.nextLine();
                 double value = credits * creditValue;
-                lineSubjects.add(new LineSubject(idSubject, subjectName, "LineSubject", null, credits, value));
+                lineSubjects.add(new LineSubject(idSubject, subjectName, "LineSubject", "", credits, value));
                 System.out.println("Subject added correctly.");
             }
             //Register if is WellfareSubject
@@ -41,7 +45,7 @@ public class Main {
                 System.out.println("Hours of the Subject: ");
                 int hours = scanner.nextInt();
                 scanner.nextLine();
-                wellfareSubjects.add(new WellfareSubject(idSubject, subjectName, "WellfareSubject", null, hours));
+                wellfareSubjects.add(new WellfareSubject(idSubject, subjectName, "WellfareSubject", "", hours));
                 System.out.println("Subject added correctly.");
                 }
             //Nothing to register
@@ -51,22 +55,28 @@ public class Main {
             }
         //Everything is correct
         System.out.println("Base data for Subjects have been created correctly.");
+        int option=0;
         //Show Menu
-        int option= Integer.parseInt(JOptionPane.showInputDialog(null, "Menu Option:\n1. Student Register\n2. Register a Subject by Student\n3. Statistics\n4. Exit Program\n"));
-        switch (option){
-            case 1:
-                StudentRegister();
-                break;
-            case 2:
-                RegisterSubjectByStudent();
-                break;
-            case 3:
-                break;
-            case 4:
-                break;
-            default:
-                break;
-        }
+        do {
+            option= Integer.parseInt(JOptionPane.showInputDialog(null, "Menu Option:\n1. Student Register\n2. Register a Subject by Student\n3. Statistics\n4. Exit Program\n"));
+            switch (option) {
+                case 1:
+                    StudentRegister();
+                    break;
+                case 2:
+                    RegisterSubjectByStudent();
+                    break;
+                case 3:
+                    getStatistics();
+                    break;
+                case 4:
+                    System.out.println("Thanks for using our services, please comeback again.");
+                    break;
+                default:
+                    System.out.println("You didn't enter a correct value, please try again.");
+                    break;
+            }
+        }while (option !=4);
     }
     public static void StudentRegister(){
         System.out.println("Write student's name: ");
@@ -83,7 +93,7 @@ public class Main {
         scanner.nextLine();
         String [] separatedBirthday = studentBirthday.split("/");
         String id=separatedBirthday[0]+studentName+separatedBirthday[2];
-        students.add(new Student(id, studentName, studentLastName,studentBirthday,studentEmail,null, null));
+        students.add(new Student(id, studentName, studentLastName,studentBirthday,studentEmail,new ArrayList<LineSubject>(), new ArrayList<WellfareSubject>()));
         System.out.println("Student have been registered correctly.");
         System.out.println("Your ID is: "+id+".");
     }
@@ -100,7 +110,7 @@ public class Main {
         scanner.nextLine();
         if (subjectLine.equalsIgnoreCase("l")){
             LineSubject lineSubject= SearchLineSByName(subjectName);
-            System.out.println("Enter the day of registration (YYYY/MM/AA");
+            System.out.println("Enter the day of registration (YYYY/MM/AA): ");
             String date = scanner.next();
             scanner.nextLine();
             lineSubject.setRegisteredDate(date);
@@ -108,7 +118,7 @@ public class Main {
         }
         else if (subjectLine.equalsIgnoreCase("w")){
             WellfareSubject wellfareSubject= SearchWellfareSByName(subjectName);
-            System.out.println("Enter the day of registration (YYYY/MM/AA");
+            System.out.println("Enter the day of registration (YYYY/MM/AA): ");
             String date = scanner.next();
             scanner.nextLine();
             wellfareSubject.setRegisteredDate(date);
@@ -138,7 +148,18 @@ public class Main {
         return null;
     }
     public static void getStatistics(){
-
+        System.out.println("The number of registered students of the Line Subjects are: ");
+        for (LineSubject lineSubject : lineSubjects){
+            String subjectName = lineSubject.getSubjectName();
+            int count = new SubjectRegister(students).returnSubjectCountByLineS(subjectName);
+            System.out.println(subjectName + ": "+count);
+        }
+        System.out.println("The number of registered students of the Wellfare Subjects are: ");
+        for (WellfareSubject wellfareSubject : wellfareSubjects){
+            String subjectName = wellfareSubject.getSubjectName();
+            int count = new SubjectRegister(students).returnSubjectCountByWellfareS(subjectName);
+            System.out.println(subjectName + ": "+count);
+        }
     }
 
 }
