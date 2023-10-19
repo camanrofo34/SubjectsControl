@@ -30,4 +30,5 @@ public class Student extends Person{
     public void setWellfareSubjects(ArrayList wellfareSubjects) {
         this.wellfareSubjects = wellfareSubjects;
     }
+
 }

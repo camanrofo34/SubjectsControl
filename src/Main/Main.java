@@ -58,6 +58,7 @@ public class Main {
                 StudentRegister();
                 break;
             case 2:
+                RegisterSubjectByStudent();
                 break;
             case 3:
                 break;
@@ -99,15 +100,45 @@ public class Main {
         scanner.nextLine();
         if (subjectLine.equalsIgnoreCase("l")){
             LineSubject lineSubject= SearchLineSByName(subjectName);
+            System.out.println("Enter the day of registration (YYYY/MM/AA");
+            String date = scanner.next();
+            scanner.nextLine();
+            lineSubject.setRegisteredDate(date);
+            student.getLineSubjects().add(lineSubject);
         }
         else if (subjectLine.equalsIgnoreCase("w")){
             WellfareSubject wellfareSubject= SearchWellfareSByName(subjectName);
+            System.out.println("Enter the day of registration (YYYY/MM/AA");
+            String date = scanner.next();
+            scanner.nextLine();
+            wellfareSubject.setRegisteredDate(date);
+            student.getWellfareSubjects().add(wellfareSubject);
         }
-        else ;
-
-
-
+        else System.out.println("You didn't choose a correct option.");
+        System.out.println("Process finished with success.");
     }
 
+    public static Student SearchStudentById(String studentId){
+        for (Student student: students){
+            if (student.getId().equals(studentId)) return student;
+        }
+        return null;
+    }
+
+    public static LineSubject SearchLineSByName(String subjectName){
+        for (LineSubject lineSubject: lineSubjects){
+            if (lineSubject.getSubjectName().equalsIgnoreCase(subjectName)) return lineSubject;
+        }
+        return null;
+    }
+    public static WellfareSubject SearchWellfareSByName(String subjectName){
+        for (WellfareSubject wellfareSubject: wellfareSubjects){
+            if (wellfareSubject.getSubjectName().equalsIgnoreCase(subjectName)) return wellfareSubject;
+        }
+        return null;
+    }
+    public static void getStatistics(){
+
+    }
 
 }

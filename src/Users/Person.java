@@ -11,4 +11,8 @@ public class Person {
         this.birthday = birthday;
         this.mail = mail;
     }
+
+    public String getId() {
+        return id;
+    }
 }
