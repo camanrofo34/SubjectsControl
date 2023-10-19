@@ -1,10 +1,13 @@
 package Main;
+import Methods.Password;
 import Methods.SubjectRegister;
 import Subjects.LineSubject;
 import Subjects.WellfareSubject;
+import Users.Admin;
 import Users.Student;
 import javax.swing.*;
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.Scanner;
 
 public class Main {
@@ -12,6 +15,8 @@ public class Main {
     static ArrayList<LineSubject> lineSubjects = new ArrayList<>();
     static ArrayList<WellfareSubject> wellfareSubjects = new ArrayList<>();
     static Scanner scanner = new Scanner(System.in);
+    static Password[] passwords = Password.values();
+
     public static void main(String[] args) {
         boolean add = true;
         int idSubject=1;
@@ -34,15 +39,24 @@ public class Main {
                 String discountApplication = scanner.next();
                 scanner.nextLine();
                 double value=0.0;
+                Admin admin = new Admin(null, null, null, null, null, false);
                 if (discountApplication.equalsIgnoreCase("Y")){
                     System.out.println("Enter admin's password: ");
                     String password = scanner.next();
                     scanner.nextLine();
+                    for (Password password1 : passwords){
+                        if (password.equals(password1.name())){
+                            admin = new Admin(null, null, null, null, null, true);
+                        }
+                    }
                 }
-                else value = credits * creditValue;
-
-                lineSubjects.add(new LineSubject(idSubject, subjectName, "LineSubject", "", credits, value));
+                value = credits * creditValue;
+                LineSubject lineSubject = new LineSubject(idSubject, subjectName, "LineSubject", "", credits, value);
+                if (admin.isPermission()) lineSubject.setValue(lineSubject.getValue()*new SubjectRegister(students).assignDiscount(admin.isPermission()) );
+                else System.out.println("The password wasn't the correct and the register failed.");
+                lineSubjects.add(lineSubject);
                 System.out.println("Subject added correctly.");
+                System.out.println("The value of this subject is: "+lineSubject.getValue());
             }
             //Register if is WellfareSubject
             else if (studyLine.equalsIgnoreCase("w")){
@@ -120,16 +134,16 @@ public class Main {
             System.out.println("Enter the day of registration (YYYY/MM/AA): ");
             String date = scanner.next();
             scanner.nextLine();
-            lineSubject.setRegisteredDate(date);
-            student.getLineSubjects().add(lineSubject);
+            Objects.requireNonNull(lineSubject).setRegisteredDate(date);
+            Objects.requireNonNull(student).getLineSubjects().add(lineSubject);
         }
         else if (subjectLine.equalsIgnoreCase("w")){
             WellfareSubject wellfareSubject= SearchWellfareSByName(subjectName);
             System.out.println("Enter the day of registration (YYYY/MM/AA): ");
             String date = scanner.next();
             scanner.nextLine();
-            wellfareSubject.setRegisteredDate(date);
-            student.getWellfareSubjects().add(wellfareSubject);
+            Objects.requireNonNull(wellfareSubject).setRegisteredDate(date);
+            Objects.requireNonNull(student).getWellfareSubjects().add(wellfareSubject);
         }
         else System.out.println("You didn't choose a correct option.");
         System.out.println("Process finished with success.");

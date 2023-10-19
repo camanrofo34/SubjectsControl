@@ -1,6 +1,8 @@
 package Subjects;
 
-public class Subject implements DiscountAssignment{
+import Methods.DiscountAssignment;
+
+public class Subject {
     int id;
     String subjectName, studyLine, registeredDate;
 
@@ -17,15 +19,5 @@ public class Subject implements DiscountAssignment{
 
     public void setRegisteredDate(String registeredDate) {
         this.registeredDate = registeredDate;
-    }
-
-    @Override
-    public double assignDiscount(boolean permission) {
-        return 0.8;
-    }
-
-    @Override
-    public double assignDiscountBySituation(String situation, boolean permission) {
-        return 0;
     }
 }

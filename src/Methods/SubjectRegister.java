@@ -6,7 +6,7 @@ import Users.Student;
 
 import java.util.ArrayList;
 
-public record SubjectRegister(ArrayList<Student> students) {
+public record SubjectRegister(ArrayList<Student> students) implements DiscountAssignment {
     public int returnSubjectCountByLineS(String subject){
         int controlSubjectCount=0;
         for (Student student : students){
@@ -26,5 +26,15 @@ public record SubjectRegister(ArrayList<Student> students) {
             }
         }
         return controlSubjectCount;
+    }
+
+    @Override
+    public double assignDiscount(boolean permission) {
+        return 0.8;
+    }
+
+    @Override
+    public double assignDiscountBySituation(String situation, boolean permission) {
+        return 0;
     }
 }

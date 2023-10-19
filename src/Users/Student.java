@@ -1,13 +1,10 @@
 package Users;
 
-import Subjects.LineSubject;
-import Subjects.WellfareSubject;
-
 import java.util.ArrayList;
 
 public class Student extends Person{
-    ArrayList lineSubjects = new ArrayList<LineSubject>();
-    ArrayList wellfareSubjects = new ArrayList<WellfareSubject>();
+    ArrayList lineSubjects = new ArrayList<>();
+    ArrayList wellfareSubjects = new ArrayList<>();
 
     public Student(String id, String name, String lastName, String birthday, String mail, ArrayList lineSubjects, ArrayList wellfareSubjects) {
         super(id, name, lastName, birthday, mail);
@@ -25,10 +22,6 @@ public class Student extends Person{
 
     public ArrayList getWellfareSubjects() {
         return wellfareSubjects;
-    }
-
-    public void setWellfareSubjects(ArrayList wellfareSubjects) {
-        this.wellfareSubjects = wellfareSubjects;
     }
 
 }

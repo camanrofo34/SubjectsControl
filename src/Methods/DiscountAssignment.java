@@ -1,4 +1,4 @@
-package Subjects;
+package Methods;
 
 public interface DiscountAssignment {
     double assignDiscount(boolean permission);
